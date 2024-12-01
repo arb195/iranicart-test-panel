@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type: string;
@@ -11,7 +11,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       <input
         type={type}
         placeholder={placeholder}
-        className="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0 px-2"
+        className="mt-1 block w-full border-none text-black bg-gray-100 h-11 rounded-xl shadow-lg duration-300	 hover:bg-gray-200 focus:bg-gray-100  px-2"
         ref={ref}
         {...other}
       />

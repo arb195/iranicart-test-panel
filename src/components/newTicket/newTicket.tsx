@@ -1,10 +1,25 @@
 import Image from "next/image";
 import Link from "next/link";
+import TextArea from "../common/inputs/textarea";
+import { useForm, Controller } from "react-hook-form";
+import { TextAriaFormData } from "../../types/newTicketType";
+import Select from "../common/inputs/select";
+
+const options = [
+  { value: "iran", label: "Iran" },
+  { value: "usa", label: "USA" },
+  { value: "japan", label: "Japan" },
+];
 
 export default function NewTicket() {
+  const { control, handleSubmit } = useForm<TextAriaFormData>();
+
+  const onSubmit = (data: TextAriaFormData) => {
+    console.log(data);
+  };
   return (
     <div className="grid grid-cols-3 gap-4 h-full ">
-      <div className="col-span-3 order-2 md:col-span-2 md:order-1">
+      <div className="col-span-3 order-2 bg-gray-50 p-3 md:col-span-2 md:order-1">
         <h2 className="text-blue-500 font-bold mb-3">افزودن تیکت جدید</h2>
         <p className="text-gray-700 text-xs mb-5">
           کاربر گرامی ایرانیکارت چنانچه سوالی دارید می‌توانید با جستجو در قسمت
@@ -13,36 +28,39 @@ export default function NewTicket() {
           کارشناسان ایرانیکارت در ارتباط باشید.
         </p>
 
-        <form action="">
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-3 text-xs font-bold mb-4">
             <label htmlFor="departments">انتخاب دسته بندی (در دپارتمان)</label>
 
-            <select
-              className="font-normal p-3"
+            <Controller
               name="department"
-              id="departments"
-            >
-              <option value="identity">احراز هویت</option>
-              <option value="carts">کارت ها</option>
-            </select>
+              control={control}
+              render={({ field }) => (
+                <Select options={options} id="department" {...field} />
+              )}
+            />
           </div>
           <div className="flex flex-col gap-3 text-xs font-bold mb-4">
             <label htmlFor="subjects">موضوع پیام ارسالی</label>
 
-            <select className="font-normal p-3" name="subject" id="subjects">
-              <option value="help">پیگیری درخواست</option>
-              <option value="change">اعمات تغییرات در پنل</option>
-            </select>
+            <Controller
+              name="subjects"
+              control={control}
+              render={({ field }) => (
+                <Select options={options} id="subjects" {...field} />
+              )}
+            />
           </div>
           <div className="flex flex-col gap-3 text-xs font-bold mb-4">
             <label htmlFor="desc">توضیحات ( متن پیام ارسالی )</label>
 
-            <textarea
-              className="border"
+            <Controller
               name="description"
-              id="desc"
-              rows={10}
-            ></textarea>
+              control={control}
+              render={({ field }) => (
+                <TextArea placeholder="توضیحات ... " rows={4} {...field} />
+              )}
+            />
           </div>
 
           <button className="bg-blue-700 text-white py-3 px-7 rounded-sm">
@@ -63,8 +81,8 @@ export default function NewTicket() {
         <div className="flex flex-col items-center justify-center gap-3">
           <Image
             src="/imgs/folder.png"
-            width={125}
-            height={125}
+            width={80}
+            height={80}
             alt="Picture of the author"
           />
           <span className="text-xs font-bold">

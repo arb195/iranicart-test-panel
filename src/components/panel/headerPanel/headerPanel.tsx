@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export default function HeaderPanel() {
   return (
-    <nav className="block w-full max-w-full bg-transparent text-white shadow-none rounded-xl transition-all px-0 py-1">
-      <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
+    <nav className="block w-full max-w-full bg-transparent text-white shadow-none rounded-xl transition-all px-0 py-1 mb-5 mt-2">
+      <div className="flex flex-col items-center justify-between gap-6 md:flex-row md:items-center">
         <Link href="/panel/ticket" className="h-6 w-6 cursor-pointer xl:hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -24,25 +24,24 @@ export default function HeaderPanel() {
         </Link>
 
         <div className="capitalize">
-          <nav aria-label="breadcrumb" className="w-max">
-            <ol className="flex flex-wrap items-center w-full bg-opacity-60 rounded-md bg-transparent p-0 transition-all">
-              <li className="flex items-center text-blue-gray-900 antialiased  text-sm font-normal leading-normal cursor-pointer transition-colors duration-300 hover:text-light-blue-500">
-                <a href="#">
-                  <p className="block antialiased  text-sm leading-normal text-blue-900 font-normal opacity-50 transition-all hover:text-blue-500 hover:opacity-100">
-                    تیکت ها
-                  </p>
-                </a>
-                <span className="text-gray-500 text-sm antialiased  font-normal leading-normal mx-2 pointer-events-none select-none">
-                  /
-                </span>
-              </li>
-              <li className="flex items-center text-blue-900 antialiased  text-sm font-normal leading-normal cursor-pointer transition-colors duration-300 hover:text-blue-500">
-                <p className="block antialiased  text-sm leading-normal text-blue-gray-900 font-normal">
-                  همه تیکت ها
+          <ol className="flex flex-wrap items-center w-full bg-opacity-60 rounded-md bg-transparent p-0 transition-all">
+            <li className="flex items-center text-blue-gray-900 antialiased  text-sm font-normal leading-normal cursor-pointer transition-colors duration-300 hover:text-light-blue-500">
+              <Link href="#">
+                <p className="block antialiased  text-sm leading-normal text-blue-900 font-normal opacity-50 transition-all hover:text-blue-500 hover:opacity-100">
+                  تیکت ها
                 </p>
-              </li>
-            </ol>
-          </nav>
+              </Link>
+              <span className="text-gray-500 text-sm antialiased  font-normal leading-normal mx-2 pointer-events-none select-none">
+                /
+              </span>
+            </li>
+            <li className="flex items-center text-blue-900 antialiased  text-sm font-normal leading-normal cursor-pointer transition-colors duration-300 hover:text-blue-500">
+              <p className="block antialiased  text-sm leading-normal text-blue-gray-900 font-normal">
+                همه تیکت ها
+              </p>
+            </li>
+          </ol>
+
           <h6 className="block antialiased tracking-normal  text-base  leading-relaxed text-gray-900">
             همه تیکت ها
           </h6>
@@ -60,7 +59,7 @@ export default function HeaderPanel() {
             </div>
           </div>
 
-          <a href="#">
+          <Link href="#">
             <button
               className="middle none  font-bold center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg text-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30 hidden items-center gap-1 px-4 xl:flex"
               type="button"
@@ -80,7 +79,7 @@ export default function HeaderPanel() {
               </svg>
               سلام کاربر1{" "}
             </button>
-          </a>
+          </Link>
         </div>
       </div>
     </nav>
