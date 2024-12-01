@@ -1,13 +1,12 @@
 "use client";
 
-import Image from "next/image";
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
+import NewTicket from "../newTicket/newTicket";
+import ViewTicket from "../viewTicket/viewTicket";
 
 export default function SingeTicket() {
-  const router = useRouter();
-  const { id } = router.query;
+  const searchParams = useSearchParams();
+  const id: string | null = searchParams.get("id");
 
-  return (
-    <>{id ? <p>Showing details for ticket ID: {id}</p> : <p>Loading...</p>}</>
-  );
+  return <>{id ? <ViewTicket /> : <NewTicket />}</>;
 }

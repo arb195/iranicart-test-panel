@@ -1,52 +1,79 @@
 "use client";
 
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { InputsLogin } from "../../types/loginType";
+import Swal from "sweetalert2";
+import { useLoginQuery } from "@/app/api";
+import Image from "next/image";
+import Input from "../common/input/input";
 
 export default function Login() {
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     formState: { errors },
   } = useForm<InputsLogin>();
-  const onSubmit: SubmitHandler<InputsLogin> = (data) => console.log(data);
+
+  const { data, error, isLoading } = useLoginQuery();
+
+  if (error instanceof Error) {
+    const s = Swal.fire({
+      title: "خطا!",
+      text: error.message,
+      icon: "error",
+      confirmButtonText: "بارگذاری مجدد صحفه",
+    }).then((result) => {
+      result.isConfirmed && window.location.reload();
+    });
+  }
+
+  const onSubmit: SubmitHandler<InputsLogin> = (formData) => {
+    console.log(data?.data?.key);
+
+    console.log(formData);
+  };
 
   return (
     <>
       <div className="relative min-h-screen flex flex-col sm:justify-center items-center bg-gray-100 ">
         <div className="relative sm:max-w-md w-full ">
-          <img
+          <Image
             src="/logo.svg"
             alt="لوگو ایرانی کارت"
-            className="absolute -top-[6rem]"
+            width={500}
+            height={100}
+            className="absolute animate-bounce -top-[5.5rem]"
           />
           <div className="card bg-blue-400 shadow-lg  w-full h-full rounded-3xl absolute  transform -rotate-6"></div>
-          <div className="card bg-red-400 shadow-lg  w-full h-full rounded-3xl absolute  transform rotate-6"></div>
+          <div className="card bg-blue-700 shadow-lg  w-full h-full rounded-3xl absolute  transform rotate-6"></div>
           <div className="relative w-full rounded-3xl  px-6 py-4 bg-gray-100 shadow-md">
-            <label
-              htmlFor=""
-              className="block mt-3 text-sm text-gray-700 text-center font-semibold"
-            >
+            <h1 className="block mt-3 text-3xl text-gray-700 text-center font-semibold">
               ورود
-            </label>
+            </h1>
 
             <form onSubmit={handleSubmit(onSubmit)} className="mt-10">
               <div>
-                <input
-                  type="text"
-                  placeholder="شماره تماس یا ایمیل"
-                  className="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"
-                  {...register("user")}
+                <Controller
+                  name="user"
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      type="text"
+                      placeholder="شماره تماس یا ایمیل"
+                      {...field}
+                    />
+                  )}
                 />
               </div>
 
               <div className="mt-7">
-                <input
-                  type="password"
-                  placeholder="رمز عبور"
-                  className="mt-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"
-                  {...register("pass")}
+                <Controller
+                  name="pass"
+                  control={control}
+                  render={({ field }) => (
+                    <Input type="password" placeholder="رمز عبور" {...field} />
+                  )}
                 />
               </div>
 
@@ -55,7 +82,7 @@ export default function Login() {
                   htmlFor="remember_me"
                   className="inline-flex items-center w-full cursor-pointer"
                 >
-                  <input
+                  <Input
                     id="remember_me"
                     type="checkbox"
                     className="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"

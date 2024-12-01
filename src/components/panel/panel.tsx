@@ -1,7 +1,6 @@
 "use client";
-import HeaderPanel from "../common/headerPanel/headerPanel";
-import SidebarPanel from "../common/sidebarPanel/sidebarPanel";
-import IconCard from "../common/iconCard/iconCard";
+import HeaderPanel from "./headerPanel/headerPanel";
+import SidebarPanel from "./sidebarPanel/sidebarPanel";
 
 export default function Panel({
   children,
@@ -12,7 +11,7 @@ export default function Panel({
 
   return (
     <div className="min-h-screen bg-gray-50/50">
-      <aside className="bg-gradient-to-br from-gray-800 to-gray-900 -translate-x-80 fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0">
+      <aside className="bg-gradient-to-br from-gray-800 to-gray-900 translate-x-80 fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0">
         <SidebarPanel />
       </aside>
       <div className="p-4 xl:mr-80">
